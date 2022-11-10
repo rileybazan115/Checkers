@@ -1270,7 +1270,7 @@ GameObject:
   - component: {fileID: 2059101955}
   - component: {fileID: 2059101954}
   m_Layer: 5
-  m_Name: btnQuit
+  m_Name: txtQuit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
