@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Checker : MonoBehaviour
 {
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +18,5 @@ public class Checker : MonoBehaviour
         
     }
 
-    public Checker()
-	{
-
-	}
+    
 }

@@ -45,22 +45,15 @@ public class Grid<TGridObject>
 		{
 			for (int y = 0; y < gridArray.GetLength(1); y++)
 			{
-				debugTextArray[x, y] = Utils.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 20, Color.white, TextAnchor.MiddleCenter);
+				debugTextArray[x, y] = Utils.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.white, TextAnchor.MiddleCenter);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
-				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y), Color.white, 100f);
 			}
 		}
 
 		Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 		Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, 0), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(width, height), GetWorldPosition(width, height), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(0, height), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(width, height), GetWorldPosition(0, height), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(0, 0), Color.white, 100f);
-		Debug.DrawLine(GetWorldPosition(0, 0), GetWorldPosition(0, height), Color.white, 100f);
+		
 
 		OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
 		{
@@ -120,69 +113,6 @@ public class Grid<TGridObject>
 		GetXY(worldPostion, out x, out y);
 		return GetGridObject(x, y);
 	}
-
-	/*public void GetLowestValue(out int lowestValue, out Vector3 lowestValuePosition)
-	{
-		lowestValue = int.MaxValue;
-		lowestValuePosition = Vector3.zero;
-
-		for (int x = 0; x < width; x++)
-		{
-			for (int y = 0; y < height; y++)
-			{
-				for (int z = 0; z < depth; z++)
-				{
-					TGridObject go = GetGridObject(x, y, z);
-					
-					if (GetGridObject(x, y, z) < lowestValue)
-					{
-						GetGridObject(x, y, z);
-
-						lowestValue = GetGridObject(x, y, z);
-						lowestValuePosition = GetWorldPosition(x, y, z);
-					}
-				}
-			}
-		}
-	}
-
-	public void GetNearestLowestValue(Vector3 position, out int lowestValue, out Vector3 lowestValuePosition)
-	{
-		int x, y, z;
-		lowestValue = int.MaxValue;
-		lowestValuePosition = Vector3.zero;
-
-		GetXYZ(position, out x, out y, out z);
-
-		if (GetGridObject(x, y, z) < lowestValue)
-		{
-			lowestValue = GetGridObject(x, y, z);
-		}
-
-		CenterSearch(x, y, z, lowestValue, lowestValuePosition);
-	}
-
-	//might need to do something with positive and negatives, not sure
-	public void CenterSearch(int x, int y, int z, int lowestValue, Vector3 lowestValuePosition)
-	{
-		if (GetGridObject(x, y, z) < lowestValue)
-		{
-			lowestValue = GetGridObject(x, y, z);
-			lowestValuePosition = GetWorldPosition(x, y, z);
-		}
-		if (x + 1 <= width)
-		{
-			CenterSearch(x + 1, y, z, lowestValue, lowestValuePosition);
-		}
-		else if (y + 1 <= height)
-		{
-			CenterSearch(x, y + 1, z, lowestValue, lowestValuePosition);
-		}
-		*//*else if (z + 1 <= width)
-		{
-			CenterSearch(x, y, z + 1, lowestValue, lowestValuePosition);
-		}*//*
-	}*/
 
 	public int GetWidth()
 	{
