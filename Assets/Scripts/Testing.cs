@@ -20,10 +20,11 @@ public class Testing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 position = Utils.GetMouseWorldPosition();
-            Board boardSquares = grid.GetGridObject(position);
-            if (boardSquares != null)
+            Board boardSquare = grid.GetGridObject(position);
+            if (boardSquare != null)
             {
-                //checker.AddValue();
+                Debug.Log("click");
+                boardSquare.AddValue(5);
             }
         }
     }

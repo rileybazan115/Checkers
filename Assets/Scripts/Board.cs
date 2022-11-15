@@ -88,6 +88,11 @@ public class Board : MonoBehaviour
         mesh.triangles = triangles;
     }		
 
+    public void AddValue(int addValue)
+    {
+        value += addValue;
+    }
+
     public override string ToString()
 	{
         return value.ToString();
