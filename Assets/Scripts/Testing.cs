@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
-    private Grid<Board> grid;
+    private Grid<BoardSquare> grid;
 	[SerializeField] private Board board;
 
     // Start is called before the first frame update
     void Start()
     {
-        grid = new Grid<Board>(8, 8, 1f, new Vector3(-4.5f, -4.5f, 0), (Grid<Board> g, int x, int y) => new Board(g, x, y));
+        grid = new Grid<BoardSquare>(8, 8, 1f, new Vector3(-4, -4, 0), (Grid<BoardSquare> g, int x, int y) => new BoardSquare(g, x, y));
         board.SetGrid(grid);
     }
 
@@ -19,8 +19,9 @@ public class Testing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 position = Utils.GetMouseWorldPosition();
-            Board boardSquare = grid.GetGridObject(position);
+            Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition();
+            BoardSquare boardSquare = grid.GetGridObject(mouseWorldPosition);
+            Debug.Log(boardSquare.IsNull());
             if (boardSquare != null)
             {
                 Debug.Log("click");

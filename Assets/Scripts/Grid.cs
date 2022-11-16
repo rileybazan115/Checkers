@@ -45,7 +45,7 @@ public class Grid<TGridObject>
 		{
 			for (int y = 0; y < gridArray.GetLength(1); y++)
 			{
-				debugTextArray[x, y] = Utils.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.white, TextAnchor.MiddleCenter);
+				//debugTextArray[x, y] = Utils.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.white, TextAnchor.MiddleCenter);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
 			}
@@ -57,7 +57,7 @@ public class Grid<TGridObject>
 
 		OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
 		{
-			debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
+			//debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
 		};
 	}
 
@@ -68,15 +68,16 @@ public class Grid<TGridObject>
 
 	public void GetXY(Vector3 worldPosition, out int x, out int y)
 	{
-		x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
-		y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
+		/*x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+		y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);*/
+		x = Mathf.FloorToInt(worldPosition.x / cellSize);
+		y = Mathf.FloorToInt(worldPosition.y / cellSize);
 	}
 
 	public void SetGridObject(int x, int y, TGridObject value)
 	{
 		if (x >= 0 && y >= 0 && x < width && y < height)
 		{
-			//gridArray[x, y, z] = Mathf.Clamp(value, HEAT_MAP_MIN_VALUE, HEAT_MAP_MAX_VALUE);
 			gridArray[x, y] = value;
 			if (OnGridObjectChanged != null) OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { x = x, y = y });
 			debugTextArray[x, y].text = gridArray[x, y].ToString();

@@ -6,18 +6,9 @@ public class Board : MonoBehaviour
 {
     //public GameObject prefab;
 
-    private Grid<Board> grid;
+    private Grid<BoardSquare> grid;
     private Mesh mesh;
-
-    private int value;
-    private int MIN;
-    private int MAX = 100;
-
-    private int x;
-    private int y;
-    private int modIndex;
-
-    List<GameObject> goGrid = new List<GameObject>();
+	private int modIndex;
 
 	public void Awake()
 	{
@@ -25,37 +16,15 @@ public class Board : MonoBehaviour
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
-	void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
-    public Board(Grid<Board> grid, int x, int y)
-	{
-        this.grid = grid;
-        this.x = x;
-        this.y = y;
-	}
-
-    public float GetValueNormalized()
-    {
-        return (float)value / MAX;
-    }
-
-    public void SetGrid(Grid<Board> grid)
+	public void SetGrid(Grid<BoardSquare> grid)
     {
         this.grid = grid;
         UpdateGridMesh();
-        //grid.OnGridObjectChanged += Grid_OnGridObjectChanged();
-        grid.TriggerGridObjectChanged(x, y);
+        //grid.TriggerGridObjectChanged(x, y);
+        grid.OnGridObjectChanged += Grid_OnGridObjectChanged;
     }
 
-    public void Grid_OnGridObjectChanged(object sender, Grid<Board>.OnGridObjectChangedEventArgs e)
+    public void Grid_OnGridObjectChanged(object sender, Grid<BoardSquare>.OnGridObjectChangedEventArgs e)
 	{
         Debug.Log("grid changed");
         UpdateGridMesh();
@@ -70,16 +39,16 @@ public class Board : MonoBehaviour
 			for (int y = 0; y < grid.GetHeight(); y++)
 			{
                 modIndex++;
-                if (modIndex % 2 == 0) grid.GetGridObject(x, y).value = 50;
-                if (modIndex % 2 == 1) grid.GetGridObject(x, y).value = 100;
+                if (modIndex % 2 == 0) grid.GetGridObject(x, y).value = 0;
+                if (modIndex % 2 == 1) grid.GetGridObject(x, y).value = 10;
                 int index = x * grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
 
-                Board gridObject = grid.GetGridObject(x, y);
+                BoardSquare gridObject = grid.GetGridObject(x, y);
                 float gridValueNormalized = gridObject.GetValueNormalized();
                 Vector2 gridValueUV = new Vector2(gridValueNormalized, 0f);
                 MeshUtils.AddToMeshArrays2d(vertices, uvs, triangles, index, grid.GetWorldPosition(x, y) + quadSize * 0.5f, 0f, quadSize, gridValueUV, gridValueUV);
-                Debug.Log(index);
+                //Debug.Log(index);
             }
             modIndex--;
         }
@@ -87,15 +56,5 @@ public class Board : MonoBehaviour
         mesh.uv = uvs;
         mesh.triangles = triangles;
     }		
-
-    public void AddValue(int addValue)
-    {
-        value += addValue;
-    }
-
-    public override string ToString()
-	{
-        return value.ToString();
-	}
 }
 
