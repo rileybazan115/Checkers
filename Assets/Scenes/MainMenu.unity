@@ -463,12 +463,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Checkers is played by two players.
 
-    
 
-    Each player begins the
-    game with 12 discs and places them on the 12 dark squares closest to him or her.
 
-    
+    Each player begins the game
+    with 12 discs and places them on the 12 dark squares closest to him or her.
+
+
 
     Black
     opens the game, then players alternate their turns.
@@ -477,10 +477,10 @@ MonoBehaviour:
     The pieces always move
     diagonally and single pieces are always limited to forward moves.
 
-    
 
-    A
-    piece making a non-capturing move may move only one square.'
+
+    A piece
+    making a non-capturing move may move only one square.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -707,7 +707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &513099340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -954,7 +954,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'A player wins the game when the opponent cannot make a move.
 
-    
+
 
     This
     happens usually because all of the opponent''s pieces have been captured, but
@@ -1512,7 +1512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &908546631
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1598,21 +1598,21 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'When a piece reaches the furthest row, it is crowned and becomes a king.
 
-    
+
 
     One
     of the pieces which had been captured is placed on top of the king so that it
     is twice as high as a single piece.
 
-    
 
-    Kings are limited to moving
-    diagonally but can move both forward and backward.
 
-    
+    Kings are limited to moving diagonally
+    but can move both forward and backward.
 
-    Kings may combine
-    jumps in several directions (forward and backward) on the same turn.'
+
+
+    Kings may combine jumps in several
+    directions (forward and backward) on the same turn.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
