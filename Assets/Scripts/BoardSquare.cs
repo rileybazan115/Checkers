@@ -5,12 +5,14 @@ using UnityEngine;
 public class BoardSquare : MonoBehaviour
 {
     public int value;
+    public bool hasPiece;
     private int MIN;
     private int MAX = 100;
+    public GameObject piece;
 
     private Grid<BoardSquare> grid;
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +41,6 @@ public class BoardSquare : MonoBehaviour
     public void AddValue(int addValue)
     {
         value += addValue;
-    }
-
-    public bool IsNull()
-    {
-        if (this == null) return true;
-        else return false;
     }
 
     public override string ToString()

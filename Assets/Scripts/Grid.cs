@@ -22,6 +22,8 @@ public class Grid<TGridObject>
 	private TGridObject[,] gridArray;
 	private TextMesh[,] debugTextArray;
 
+	[SerializeField] Checker checker;
+
 	public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
 	{
 		this.width = width;
@@ -48,6 +50,10 @@ public class Grid<TGridObject>
 				//debugTextArray[x, y] = Utils.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 5, Color.white, TextAnchor.MiddleCenter);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
 				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
+
+				/*if (y > 4) { Checker checker = new Checker(false, new Vector2(x, y)); }
+				if (y < 3) { Checker checker = new Checker(true, new Vector2(x, y)); }*/
+				if (y > 4) { }
 			}
 		}
 
@@ -68,10 +74,8 @@ public class Grid<TGridObject>
 
 	public void GetXY(Vector3 worldPosition, out int x, out int y)
 	{
-		/*x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
-		y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);*/
-		x = Mathf.FloorToInt(worldPosition.x / cellSize);
-		y = Mathf.FloorToInt(worldPosition.y / cellSize);
+		x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+		y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
 	}
 
 	public void SetGridObject(int x, int y, TGridObject value)
@@ -100,6 +104,7 @@ public class Grid<TGridObject>
 	{
 		if (x >= 0 && y >= 0 && x < width && y < height)
 		{
+			Debug.Log(x + " " + y);
 			return gridArray[x, y];
 		}
 		else
@@ -112,7 +117,13 @@ public class Grid<TGridObject>
 	{
 		int x, y;
 		GetXY(worldPostion, out x, out y);
+		Debug.Log(x + " " + y);
 		return GetGridObject(x, y);
+	}
+
+	public Array GetArray()
+	{
+		return gridArray;
 	}
 
 	public int GetWidth()

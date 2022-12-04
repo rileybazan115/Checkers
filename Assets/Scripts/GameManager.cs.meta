@@ -3,7 +3,11 @@ guid: fb25e252f2ab8eb4db58f7891f9859b0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - GameOverWindow: {instanceID: 0}
+  - RedChecker: {fileID: 123527175586701809, guid: a41a54149266cc742a7736997e506903, type: 3}
+  - WhiteChecker: {fileID: 1939867198158183495, guid: 5a59086ebe642fa46a61c15cf351784c, type: 3}
+  - board: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

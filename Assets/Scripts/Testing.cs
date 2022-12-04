@@ -20,8 +20,8 @@ public class Testing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition();
+            Debug.Log(mouseWorldPosition);
             BoardSquare boardSquare = grid.GetGridObject(mouseWorldPosition);
-            Debug.Log(boardSquare.IsNull());
             if (boardSquare != null)
             {
                 Debug.Log("click");
