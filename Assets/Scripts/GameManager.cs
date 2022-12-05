@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public GameObject whiteChecker;
     private Checker currentPiece;
 
+    private int redCheckerCount = 0;
+    private int whiteCheckerCount = 0;
+
     private int modIndex = 0;
 
     private Grid<BoardSquare> grid;
@@ -44,6 +47,9 @@ public class GameManager : MonoBehaviour
                     whiteChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
                     square.piece = whiteChecker.GetComponent<Checker>();
+
+                    // Louis code
+                    whiteCheckerCount++;
 				}
 
 				if (square.y % 2 == 1 && square.x % 2 == 0)
@@ -53,7 +59,11 @@ public class GameManager : MonoBehaviour
                     whiteChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
                     square.piece = whiteChecker.GetComponent<Checker>();
-				}
+
+
+                    // Louis code
+                    whiteCheckerCount++;
+                }
 			}
 
             if (square.y < 3)
@@ -65,7 +75,11 @@ public class GameManager : MonoBehaviour
                     redChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
                     square.piece = redChecker.GetComponent<Checker>();
-				}
+
+
+                    // Louis code
+                    redCheckerCount++;
+                }
 
                 if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
@@ -74,6 +88,9 @@ public class GameManager : MonoBehaviour
                     redChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
                     square.piece = redChecker.GetComponent<Checker>();
+
+                    // Louis code
+                    redCheckerCount++;
                 }
 			}
 		}
@@ -118,7 +135,10 @@ public class GameManager : MonoBehaviour
     private void CheckWinLoss()
     {
         // if player1 or player2 checkers are all gone
-        isGameOver = true;
+        if(redCheckerCount <= 0 || whiteCheckerCount <= 0)
+        {
+          isGameOver = true;
+        }
     }
 
 
