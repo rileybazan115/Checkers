@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameUIButtons : MonoBehaviour
 {
     [SerializeField] string sceneToLoad;
+    [SerializeField] string mainMenuScene;
+    
     [SerializeField] GameObject howToPlayScreen;
-    [SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject mainScreen;
 
 
     public void Play()
@@ -22,8 +24,14 @@ public class GameUIButtons : MonoBehaviour
 
     public void HowToPlay()
     {
-        mainMenu.SetActive(false);
+        mainScreen.SetActive(false);
         howToPlayScreen.SetActive(true);
+    }
+
+    public void MainScreen()
+    {
+        mainScreen.SetActive(true);
+        howToPlayScreen.SetActive(false);
     }
 
     public void MainMenu()

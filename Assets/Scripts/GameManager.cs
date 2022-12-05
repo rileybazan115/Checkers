@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour
     public GameObject whiteChecker;
     private Checker currentPiece;
 
-    public Texture2D white;
-    public Texture2D red;
+    private int redCheckerCount = 0;
+    private int whiteCheckerCount = 0;
+
+    private int modIndex = 0;
 
     private Grid<BoardSquare> grid;
     [SerializeField] private Board board;
@@ -53,7 +55,11 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = checker.GetComponent<Checker>();
+                    square.piece = whiteChecker.GetComponent<Checker>();
+
+
+                    // Louis code
+                    whiteCheckerCount++;
                 }
 			}
 
@@ -65,7 +71,11 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = checker.GetComponent<Checker>();
+                    square.piece = redChecker.GetComponent<Checker>();
+
+
+                    // Louis code
+                    redCheckerCount++;
                 }
 
                 if (square.y % 2 == 0 && square.x % 2 == 1)
@@ -74,7 +84,10 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = checker.GetComponent<Checker>();
+                    square.piece = redChecker.GetComponent<Checker>();
+
+                    // Louis code
+                    redCheckerCount++;
                 }
 			}
 		}
@@ -115,7 +128,10 @@ public class GameManager : MonoBehaviour
     private void CheckWinLoss()
     {
         // if player1 or player2 checkers are all gone
-        isGameOver = true;
+        if(redCheckerCount <= 0 || whiteCheckerCount <= 0)
+        {
+          isGameOver = true;
+        }
     }
 
 
