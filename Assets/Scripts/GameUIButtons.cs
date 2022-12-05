@@ -28,6 +28,12 @@ public class GameUIButtons : MonoBehaviour
         howToPlayScreen.SetActive(true);
     }
 
+    public void MainScreen()
+    {
+        mainScreen.SetActive(true);
+        howToPlayScreen.SetActive(false);
+    }
+
     public void MainMenu()
     {
         // Go to Main menu
