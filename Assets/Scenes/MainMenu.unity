@@ -1494,7 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7476528067d0ee049922b9fd07b6b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Scene
+  sceneToLoad: SampleScene
   howToPlayScreen: {fileID: 908546630}
   mainMenu: {fileID: 513099339}
 --- !u!1 &908546630
