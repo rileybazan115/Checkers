@@ -8,7 +8,7 @@ public class Checker : MonoBehaviour
     public bool isRed;
     bool isKing;
     int kingRow;
-    Grid<BoardSquare> grid;
+    public Grid<BoardSquare> grid;
     Vector2 xyPosition;
 
     Color[] colors;
@@ -42,14 +42,18 @@ public class Checker : MonoBehaviour
 
 	public void Move(Vector2 checkerPosition, Vector2 nextMovePosition)
 	{
+        grid.GetXY(checkerPosition, out int cX, out int cY);
+        grid.GetXY(nextMovePosition, out int nX, out int nY);
         //red
         if (isRed)
 		{
             //move 1
-            if (nextMovePosition.y - checkerPosition.y == 1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+            if (nY - cY == 1 && Mathf.Abs(nX - cX) == 1)
 			{
+                Debug.Log("Move");
                 if (!CheckForPiece(nextMovePosition))
 				{
+                    
                     MovePiece(nextMovePosition);
 				}
 			}
@@ -133,7 +137,6 @@ public class Checker : MonoBehaviour
 	{
         grid.GetXY(movePosition, out int x, out int y);
         this.transform.position = grid.GetWorldPosition(x, y);
-        //this.transform.position = grid.getWorldPsotion(movePosiiton.x, moveWorldPosition.y);
 	}
 
     public void King()
@@ -143,4 +146,77 @@ public class Checker : MonoBehaviour
             isKing = true;
 		}
 	}
+
+    public override string ToString()
+    {
+        return this.transform.position.ToString();
+    }
 }
+
+
+
+/*if (isRed)
+{
+    //move 1
+    if (nextMovePosition.y - checkerPosition.y == 1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+    {
+        Debug.Log("Move");
+        if (!CheckForPiece(nextMovePosition))
+        {
+
+            MovePiece(nextMovePosition);
+        }
+    }
+    //move 2 and capture
+    if (nextMovePosition.y - checkerPosition.y == 2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+    {
+        Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
+        if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+        {
+            MovePiece(nextMovePosition);
+            CapturePiece(inbetween);
+        }
+    }
+}
+
+//white
+else
+{
+    if (nextMovePosition.y - checkerPosition.y == -1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+    {
+        if (!CheckForPiece(nextMovePosition))
+        {
+            MovePiece(nextMovePosition);
+        }
+    }
+    if (nextMovePosition.y - checkerPosition.y == -2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+    {
+        Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
+        if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+        {
+            MovePiece(nextMovePosition);
+            CapturePiece(inbetween);
+        }
+    }
+}
+//king
+if (isKing)
+{
+    if (Mathf.Abs(nextMovePosition.y - checkerPosition.y) == 1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+    {
+        if (!CheckForPiece(nextMovePosition))
+        {
+            MovePiece(nextMovePosition);
+        }
+    }
+
+    if (Mathf.Abs(nextMovePosition.y - checkerPosition.y) == 2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+    {
+        Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
+        if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+        {
+            MovePiece(nextMovePosition);
+            CapturePiece(inbetween);
+        }
+    }
+}*/

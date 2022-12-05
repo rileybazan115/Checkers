@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverWindow;
     public GameObject redChecker;
     public GameObject whiteChecker;
-    public GameObject currentPiece;
+    private Checker currentPiece;
 
-    private int modIndex;
+    private int modIndex = 0;
 
     private Grid<BoardSquare> grid;
     [SerializeField] private Board board;
@@ -41,16 +41,18 @@ public class GameManager : MonoBehaviour
 				{
 					Instantiate(whiteChecker);
 					whiteChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    whiteChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = whiteChecker;
+                    square.piece = whiteChecker.GetComponent<Checker>();
 				}
 
 				if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
 					Instantiate(whiteChecker);
 					whiteChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    whiteChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = whiteChecker;
+                    square.piece = whiteChecker.GetComponent<Checker>();
 				}
 			}
 
@@ -60,16 +62,18 @@ public class GameManager : MonoBehaviour
 				{
                     Instantiate(redChecker);
                     redChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    redChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker;
+                    square.piece = redChecker.GetComponent<Checker>();
 				}
 
                 if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
                     Instantiate(redChecker);
                     redChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    redChecker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker;
+                    square.piece = redChecker.GetComponent<Checker>();
                 }
 			}
 		}
@@ -85,18 +89,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition();
-            Debug.Log(mouseWorldPosition);
-            BoardSquare boardSquare = grid.GetGridObject(mouseWorldPosition);
-
+            grid.GetXY(mouseWorldPosition, out int x, out int y);
+            BoardSquare boardSquare = grid.GetGridObject(x, y);
+             
             if (boardSquare.hasPiece == true)
 			{
                 currentPiece = boardSquare.piece;
+                currentPiece.transform.position = new Vector3(-5, -5, 0);
+                Debug.Log(currentPiece);
+            }
+
+            if (boardSquare.hasPiece == false)
+			{
+                currentPiece.Move(currentPiece.transform.position, mouseWorldPosition);
 			}
-            /*if (boardSquare != null)
-            {
-                Debug.Log("click");
-                boardSquare.AddValue(5);
-            }*/
         }
 
         if (isGameOver) GameOver();

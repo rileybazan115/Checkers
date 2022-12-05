@@ -21,6 +21,7 @@ public class Grid<TGridObject>
 	private Vector3 originPosition;
 	private TGridObject[,] gridArray;
 	private TextMesh[,] debugTextArray;
+	private int counter = 0;
 
 	[SerializeField] Checker checker;
 
@@ -74,6 +75,7 @@ public class Grid<TGridObject>
 
 	public void GetXY(Vector3 worldPosition, out int x, out int y)
 	{
+		counter++;
 		x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
 		y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
 	}
@@ -104,7 +106,7 @@ public class Grid<TGridObject>
 	{
 		if (x >= 0 && y >= 0 && x < width && y < height)
 		{
-			Debug.Log(x + " " + y);
+			//Debug.Log(x + " " + y);
 			return gridArray[x, y];
 		}
 		else
@@ -117,7 +119,7 @@ public class Grid<TGridObject>
 	{
 		int x, y;
 		GetXY(worldPostion, out x, out y);
-		Debug.Log(x + " " + y);
+		//Debug.Log(x + " " + y);
 		return GetGridObject(x, y);
 	}
 

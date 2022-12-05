@@ -8,7 +8,7 @@ public class BoardSquare : MonoBehaviour
     public bool hasPiece;
     private int MIN;
     private int MAX = 100;
-    public GameObject piece;
+    public Checker piece;
 
     private Grid<BoardSquare> grid;
     public int x;
@@ -45,6 +45,6 @@ public class BoardSquare : MonoBehaviour
 
     public override string ToString()
     {
-        return value.ToString();
+        return this.transform.position.ToString();
     }
 }
