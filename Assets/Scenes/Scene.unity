@@ -308,6 +308,8 @@ MonoBehaviour:
   gameOverWindow: {fileID: 0}
   redChecker: {fileID: 123527175586701809, guid: a41a54149266cc742a7736997e506903, type: 3}
   whiteChecker: {fileID: 1939867198158183495, guid: 5a59086ebe642fa46a61c15cf351784c, type: 3}
+  white: {fileID: 2800000, guid: 15092404131c9fd448015f315918e4d5, type: 3}
+  red: {fileID: 2800000, guid: 15092404131c9fd448015f315918e4d5, type: 3}
   board: {fileID: 2016959980}
 --- !u!4 &822526098
 Transform:

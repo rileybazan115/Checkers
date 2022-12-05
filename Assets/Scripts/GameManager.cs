@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject whiteChecker;
     private Checker currentPiece;
 
-    private int modIndex = 0;
+    public Texture2D white;
+    public Texture2D red;
 
     private Grid<BoardSquare> grid;
     [SerializeField] private Board board;
@@ -39,49 +40,45 @@ public class GameManager : MonoBehaviour
 			{
 				if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
-					Instantiate(whiteChecker);
-					whiteChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
-                    whiteChecker.GetComponent<Checker>().grid = grid;
-                    square.hasPiece = true;
-                    square.piece = whiteChecker.GetComponent<Checker>();
+					var checker = Instantiate(whiteChecker);
+					checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+					checker.GetComponent<Checker>().grid = grid;
+					square.hasPiece = true;
+					square.piece = checker.GetComponent<Checker>();
 				}
 
 				if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
-					Instantiate(whiteChecker);
-					whiteChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
-                    whiteChecker.GetComponent<Checker>().grid = grid;
+                    var checker = Instantiate(whiteChecker);
+                    checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = whiteChecker.GetComponent<Checker>();
-				}
+                    square.piece = checker.GetComponent<Checker>();
+                }
 			}
 
             if (square.y < 3)
 			{
                 if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
-                    Instantiate(redChecker);
-                    redChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
-                    redChecker.GetComponent<Checker>().grid = grid;
+                    var checker = Instantiate(redChecker);
+                    checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker.GetComponent<Checker>();
-				}
+                    square.piece = checker.GetComponent<Checker>();
+                }
 
                 if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
-                    Instantiate(redChecker);
-                    redChecker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
-                    redChecker.GetComponent<Checker>().grid = grid;
+                    var checker = Instantiate(redChecker);
+                    checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
+                    checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker.GetComponent<Checker>();
+                    square.piece = checker.GetComponent<Checker>();
                 }
 			}
 		}
 	}
-
-    //need to know whose turn it is
-    //know whether a piece is already selected, and who pieces belong too
-    //
 
     // Update is called once per frame
     void Update()
@@ -95,14 +92,14 @@ public class GameManager : MonoBehaviour
             if (boardSquare.hasPiece == true)
 			{
                 currentPiece = boardSquare.piece;
-                currentPiece.transform.position = new Vector3(-5, -5, 0);
                 Debug.Log(currentPiece);
             }
 
             if (boardSquare.hasPiece == false)
 			{
+                
                 currentPiece.Move(currentPiece.transform.position, mouseWorldPosition);
-			}
+            }
         }
 
         if (isGameOver) GameOver();
