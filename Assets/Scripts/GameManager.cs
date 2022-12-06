@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     public int redCheckerCount = 0;
     public int whiteCheckerCount = 0;
 
+    [SerializeField] TMP_Text redCheckerTxt;
+    [SerializeField] TMP_Text whiteCheckerTxt;
+
     private int modIndex = 0;
 
     private Grid<BoardSquare> grid;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
-					var checker = Instantiate(whiteChecker);
+					var checker = Instantiate(whiteChecker, board.transform);
 					checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
 					checker.GetComponent<Checker>().grid = grid;
 					square.hasPiece = true;
@@ -53,7 +56,7 @@ public class GameManager : MonoBehaviour
 
 				if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
-                    var checker = Instantiate(whiteChecker);
+                    var checker = Instantiate(whiteChecker, board.transform);
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
 			{
                 if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
-                    var checker = Instantiate(redChecker);
+                    var checker = Instantiate(redChecker, board.transform);
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
@@ -81,7 +84,7 @@ public class GameManager : MonoBehaviour
 
                 if (square.y % 2 == 0 && square.x % 2 == 1)
 				{
-                    var checker = Instantiate(redChecker);
+                    var checker = Instantiate(redChecker, board.transform);
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
@@ -114,6 +117,9 @@ public class GameManager : MonoBehaviour
                 currentPiece.Move(currentPiece.transform.position, mouseWorldPosition);
             }
         }
+
+        redCheckerTxt.text = "Blue Pieces Left: " + redCheckerCount.ToString();
+        whiteCheckerTxt.text = "White Pieces Left: " + whiteCheckerCount.ToString();
 
         if (isGameOver) GameOver();
         CheckWinLoss();

@@ -7,7 +7,9 @@ public class GameUIButtons : MonoBehaviour
 {
     [SerializeField] string sceneToLoad;
     [SerializeField] string mainMenuScene;
-    
+
+    [SerializeField] GameObject board;
+
     [SerializeField] GameObject howToPlayScreen;
     [SerializeField] GameObject mainScreen;
 
@@ -24,12 +26,14 @@ public class GameUIButtons : MonoBehaviour
 
     public void HowToPlay()
     {
+        if (board != null) board.SetActive(false);
         mainScreen.SetActive(false);
         howToPlayScreen.SetActive(true);
     }
 
     public void MainScreen()
     {
+        if (board != null) board.SetActive(true);
         mainScreen.SetActive(true);
         howToPlayScreen.SetActive(false);
     }
@@ -38,6 +42,11 @@ public class GameUIButtons : MonoBehaviour
     {
         // Go to Main menu
         SceneManager.LoadScene(0);
+    }
+
+    public void Rematch()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void CloseApp()
