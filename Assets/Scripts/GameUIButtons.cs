@@ -14,7 +14,7 @@ public class GameUIButtons : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().build;
+        SceneManager.LoadScene(sceneToLoad);
     }
 
     public void PlayAgain()
