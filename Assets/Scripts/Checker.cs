@@ -53,17 +53,28 @@ public class Checker : MonoBehaviour
                 Debug.Log("Move");
                 if (!CheckForPiece(nextMovePosition))
 				{
-                    
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
+                    if (nY == kingRow) isKing = true;
                     MovePiece(nextMovePosition);
 				}
 			}
             //move 2 and capture
-            if (nextMovePosition.y - checkerPosition.y == 2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+            if (nY - cY == 2 && Mathf.Abs(nX - cX) == 2)
             {
                 Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
-                if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+                grid.GetXY(inbetween, out int iX, out int iY);
+                if (CheckForPiece(inbetween) && CheckForPiece(nextMovePosition) == false && grid.GetGridObject(iX, iY).piece.isRed == false)
 				{
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
+                    if (nY == kingRow) isKing = true;
                     MovePiece(nextMovePosition);
+                    GameManager.instance.whiteCheckerCount--;
                     CapturePiece(inbetween);
 				}
             }
@@ -72,19 +83,31 @@ public class Checker : MonoBehaviour
 		//white
 		else
 		{
-			if (nextMovePosition.y - checkerPosition.y == -1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+			if (nY - cY == -1 && Mathf.Abs(nX - cX) == 1)
 			{
                 if (!CheckForPiece(nextMovePosition))
                 {
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
+                    if (nY == kingRow) isKing = true;
                     MovePiece(nextMovePosition);
                 }
             }
-			if (nextMovePosition.y - checkerPosition.y == -2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+			if (nY - cY == -2 && Mathf.Abs(nX - cX) == 2)
 			{
                 Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
-                if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+                grid.GetXY(inbetween, out int iX, out int iY);
+                if (CheckForPiece(inbetween) && CheckForPiece(nextMovePosition) == false && grid.GetGridObject(iX, iY).piece.isRed == true)
                 {
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
+                    if (nY == kingRow) isKing = true;
                     MovePiece(nextMovePosition);
+                    GameManager.instance.redCheckerCount--;
                     CapturePiece(inbetween);
                 }
             }
@@ -92,20 +115,31 @@ public class Checker : MonoBehaviour
 		//king
 		if (isKing)
 		{
-            if (Mathf.Abs(nextMovePosition.y - checkerPosition.y) == 1 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 1)
+            if (Mathf.Abs(nY - cY) == 1 && Mathf.Abs(nX - cX) == 1)
             {
                 if (!CheckForPiece(nextMovePosition))
                 {
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
                     MovePiece(nextMovePosition);
                 }
             }
 
-            if (Mathf.Abs(nextMovePosition.y - checkerPosition.y) == 2 && Mathf.Abs(nextMovePosition.x - checkerPosition.x) == 2)
+            if (Mathf.Abs(nY - cY) == 2 && Mathf.Abs(cX - cX) == 2)
 			{
                 Vector2 inbetween = (nextMovePosition + checkerPosition) / 2;
-                if (CheckForPiece(nextMovePosition) && CheckForPiece(nextMovePosition) == false)
+                grid.GetXY(inbetween, out int iX, out int iY);
+                if (CheckForPiece(inbetween) && CheckForPiece(nextMovePosition) == false && grid.GetGridObject(iX, iY).piece.isRed != this.isRed)
                 {
+                    grid.GetGridObject(cX, cY).hasPiece = false;
+                    grid.GetGridObject(nX, nY).hasPiece = true;
+                    grid.GetGridObject(cX, cY).piece = null;
+                    grid.GetGridObject(nX, nY).piece = this;
                     MovePiece(nextMovePosition);
+                    if (grid.GetGridObject(iX, iY).piece.isRed) GameManager.instance.redCheckerCount--;
+                    if (!grid.GetGridObject(iX, iY).piece.isRed) GameManager.instance.whiteCheckerCount--;
                     CapturePiece(inbetween);
                 }
             }
@@ -123,7 +157,10 @@ public class Checker : MonoBehaviour
 
     public void CapturePiece(Vector2 piece)
 	{
-        Destroy(FindSquare(piece));
+        BoardSquare square = FindSquare(piece);
+        Destroy(square.piece.gameObject);
+        square.piece = null;
+        square.hasPiece = false;
 	}
 
     public BoardSquare FindSquare(Vector2 location)
@@ -136,7 +173,7 @@ public class Checker : MonoBehaviour
     public void MovePiece(Vector2 movePosition)
 	{
         grid.GetXY(movePosition, out int x, out int y);
-        this.transform.position = grid.GetWorldPosition(x, y);
+        this.transform.position = grid.GetWorldPosition(x, y) + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * .5f;
 	}
 
     public void King()

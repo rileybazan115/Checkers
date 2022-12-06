@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject whiteChecker;
     private Checker currentPiece;
 
-    private int redCheckerCount = 0;
-    private int whiteCheckerCount = 0;
+    public int redCheckerCount = 0;
+    public int whiteCheckerCount = 0;
 
     private int modIndex = 0;
 
@@ -47,7 +47,9 @@ public class GameManager : MonoBehaviour
 					checker.GetComponent<Checker>().grid = grid;
 					square.hasPiece = true;
 					square.piece = checker.GetComponent<Checker>();
-				}
+
+                    whiteCheckerCount++;
+                }
 
 				if (square.y % 2 == 1 && square.x % 2 == 0)
 				{
@@ -55,8 +57,7 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = whiteChecker.GetComponent<Checker>();
-
+                    square.piece = checker.GetComponent<Checker>();
 
                     // Louis code
                     whiteCheckerCount++;
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker.GetComponent<Checker>();
+                    square.piece = checker.GetComponent<Checker>();
 
 
                     // Louis code
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
                     checker.transform.position = grid.GetWorldPosition(square.x, square.y) + cellSize;
                     checker.GetComponent<Checker>().grid = grid;
                     square.hasPiece = true;
-                    square.piece = redChecker.GetComponent<Checker>();
+                    square.piece = checker.GetComponent<Checker>();
 
                     // Louis code
                     redCheckerCount++;
@@ -110,7 +111,6 @@ public class GameManager : MonoBehaviour
 
             if (boardSquare.hasPiece == false)
 			{
-                
                 currentPiece.Move(currentPiece.transform.position, mouseWorldPosition);
             }
         }
@@ -130,9 +130,7 @@ public class GameManager : MonoBehaviour
         // if player1 or player2 checkers are all gone
         if(redCheckerCount <= 0 || whiteCheckerCount <= 0)
         {
-          isGameOver = true;
+            isGameOver = true;
         }
     }
-
-
 }
